@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<!-- commented after was described  xmlns:context in header -->
+<!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+<!--        <property name="location" value="classpath:application.properties"/>-->
+<!--    </bean>-->
+
+<!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+    <context:annotation-config/>
+    <context:property-placeholder location="classpath:application.properties"/>
+
+
+    <bean id="userRepository1" name="repository1, anotherRepository1" class="com.rnb.database.repository.UserRepository">
+        <!--
+                init-method="init" destroy-method="destroy">
+        -->
+        <constructor-arg name="userName" value="${db.username}"/>
+        <constructor-arg name="poolSize" value="${db.pool.size}"/>
+        <constructor-arg name="args">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="user" value="budukh_rn"/>
+                <entry key="address" value="Odessa"/>
+                <entry key="mail" value="budukh_rn@yahoo.com"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+<!--    for example -->
+<!--    <bean id="userRepository2" name="aliasRepository2" class="com.rnb.database.repository.UserRepository"/>-->
+
+<!-- example -->
+<!--    <bean name="driver" class="java.lang.String">
+        <constructor-arg value="Postrgess"/>
+    </bean> -->
+
+    <bean class="com.rnb.dto.UserDto" name="userDto" scope="prototype"/>
+
+    <bean class="com.rnb.mapper.UserMapper" name="userMapper">
+        <constructor-arg ref="userDto"/>
+    </bean>
+
+    <bean class="com.rnb.service.UserService" name="userService">
+            <constructor-arg name="userRepository" ref="repository1"/>
+            <constructor-arg name="userMapper" ref="userMapper"/>
+    </bean>
+
+</beans>

@@ -51,6 +51,13 @@
         <constructor-arg name="poolSize" value="${db.pool.size}"/>
     </bean>
 
+    <bean name="connectionPool2" class="com.rnb.database.repository.pool.ConnectionPool">
+        <constructor-arg name="userName" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
+        <constructor-arg name="url" value="${db.url}"/>
+        <constructor-arg name="poolSize" value="${db.pool.size}"/>
+    </bean>
+
     <bean id="companyRepository1" name="companyRepository" class="com.rnb.database.repository.CompanyRepository"/>
 
 

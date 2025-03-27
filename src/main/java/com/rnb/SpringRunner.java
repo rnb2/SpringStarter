@@ -1,6 +1,7 @@
 package com.rnb;
 
 
+import com.rnb.database.repository.CompanyRepository;
 import com.rnb.database.repository.UserRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,8 +12,10 @@ public class SpringRunner {
         ClassPathXmlApplicationContext xmlApplicationContext = new ClassPathXmlApplicationContext("application.xml");
 
         UserRepository userRepository = xmlApplicationContext.getBean("userRepository1", UserRepository.class);
-
         System.out.println(userRepository);
+
+        CompanyRepository companyRepository = xmlApplicationContext.getBean(CompanyRepository.class);
+        System.out.println(companyRepository);
 
         xmlApplicationContext.close();
     }

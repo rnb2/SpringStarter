@@ -15,6 +15,9 @@
     <context:annotation-config/>
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <!-- BPP for custom @InjectBean annotation -->
+    <bean class="com.rnb.bpp.InjectBeanPostProcessor"/>
+
 
     <bean id="userRepository1" name="repository1, anotherRepository1" class="com.rnb.database.repository.UserRepository">
         <!--
@@ -38,13 +41,22 @@
         </constructor-arg>
     </bean>
 
-<!--    for example -->
-<!--    <bean id="userRepository2" name="aliasRepository2" class="com.rnb.database.repository.UserRepository"/>-->
+    <!--    for example -->
+    <!--    <bean id="userRepository2" name="aliasRepository2" class="com.rnb.database.repository.UserRepository"/>-->
 
-<!-- example -->
-<!--    <bean name="driver" class="java.lang.String">
-        <constructor-arg value="Postrgess"/>
-    </bean> -->
+    <bean name="connectionPool" class="com.rnb.database.repository.pool.ConnectionPool">
+        <constructor-arg name="userName" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
+        <constructor-arg name="url" value="${db.url}"/>
+        <constructor-arg name="poolSize" value="${db.pool.size}"/>
+    </bean>
+
+    <bean id="companyRepository1" name="companyRepository" class="com.rnb.database.repository.CompanyRepository"/>
+
+
+   <bean name="driver" class="java.lang.String">
+        <constructor-arg value="PostrgesDriver"/>
+    </bean>
 
     <bean class="com.rnb.dto.UserDto" name="userDto" scope="prototype"/>
 
